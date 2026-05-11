@@ -1,0 +1,6 @@
+agent,family,training_time_s,model_size,disk_kb,notes
+BaseQAgent,tabular,1.73,2765,516.0,"10k eps, alpha=0.1, gamma=0.9, eps=0.2"
+ImprovedQAgent,tabular,198.36,1939,87.2,"50k eps, dual_persp+shaping+sym, eps decay 1.0->0.05"
+Maestro (DQN),neuronal,159.4,18953,76.7,20k eps vs Random
+DQN curriculum,neuronal,460.41,18953,77.1,60k eps (3 fases x 20k): Maestro -> Algorithm -> Random
+SARSA curriculum,neuronal,416.87,18953,77.1,60k eps (3 fases x 20k): Maestro -> Algorithm -> Random

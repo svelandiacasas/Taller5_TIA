@@ -46,7 +46,12 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from new.bootstrap import bootstrap_ci, paired_bootstrap_test  # noqa: E402
-from new.diagnostics import evaluate_vs_algorithm, evaluate_vs_random  # noqa: E402
+from new.evaluation import (  # noqa: E402
+    compute_distance_to_minimax,
+    evaluate_vs_algorithm,
+    evaluate_vs_minimax,
+    evaluate_vs_random,
+)
 from new.minimax import MinimaxAgent  # noqa: E402
 from new.rng_utils import isolated_rng  # noqa: E402
 from new.seeds import set_seed  # noqa: E402
@@ -109,84 +114,6 @@ METRICS = [
 # ---------------------------------------------------------------------- #
 # Evaluaciones nuevas (no estaban en diagnostics.py)
 # ---------------------------------------------------------------------- #
-def evaluate_vs_minimax(
-    agent,
-    n_episodes: int = 500,
-    agent_role: int = 1,
-    seed: int = 0,
-) -> dict:
-    """Evalúa `agent` contra `MinimaxAgent`. Minimax nunca pierde; el agente
-    solo puede empatar o perder."""
-    minimax = MinimaxAgent(player_id=2 if agent_role == 1 else 1)
-    with isolated_rng():
-        set_seed(seed)
-        wins = draws = losses = 0
-        for _ in range(n_episodes):
-            game = Game()
-            while not game.game_over:
-                cp = game.current_player
-                if cp == agent_role:
-                    r, c = agent.select_action_eval(game)
-                else:
-                    r, c = minimax.select_action(game)
-                game._execute_move(r, c, cp)
-            winner = game.get_winner()
-            if winner == agent_role:
-                wins += 1
-            elif winner == 0:
-                draws += 1
-            else:
-                losses += 1
-        return {
-            "wins": wins, "draws": draws, "losses": losses,
-            "win_rate": wins / n_episodes,
-            "draw_rate": draws / n_episodes,
-            "loss_rate": losses / n_episodes,
-        }
-
-
-def compute_distance_to_minimax(
-    agent,
-    n_episodes: int = 500,
-    agent_role: int = 1,
-    seed: int = 0,
-) -> float:
-    """Distancia a Minimax: `1 − (movs_optimos / movs_totales)`.
-
-    Para cada movimiento que hace el agente durante una partida vs Random,
-    se compara contra `optimal_actions_from_state`. Mide la calidad de la
-    política de EXPLOTACIÓN (no la de exploración, por eso jugamos vs
-    Random — un oponente externo, no self-play).
-
-    Devuelve un `float` en `[0, 1]`. `0.0` = perfecto (siempre minimax-óptimo),
-    `1.0` = nunca minimax-óptimo.
-    """
-    minimax = MinimaxAgent(player_id=agent_role)
-    total_moves = 0
-    optimal_moves = 0
-    with isolated_rng():
-        set_seed(seed)
-        for _ in range(n_episodes):
-            game = Game()
-            while not game.game_over:
-                cp = game.current_player
-                if cp == agent_role:
-                    state = np.asarray(game.get_game_matrix(), dtype=int)
-                    optimal = minimax.optimal_actions_from_state(state, cp)
-                    r, c = agent.select_action_eval(game)
-                    if (r, c) in optimal:
-                        optimal_moves += 1
-                    total_moves += 1
-                    game._execute_move(r, c, cp)
-                else:
-                    pos = game.available_positions()
-                    idx = np.random.randint(len(pos))
-                    game._execute_move(int(pos[idx][0]), int(pos[idx][1]), cp)
-        if total_moves == 0:
-            return 0.0
-        return 1.0 - (optimal_moves / total_moves)
-
-
 def evaluate_agent_metrics(
     agent,
     n_eval_games: int = 500,

@@ -97,6 +97,26 @@ def main() -> None:
     plt.close(fig)
     print(f"\nFigura: {fig_path.relative_to(ROOT)}")
 
+    # Guardar el agente entrenado (pickle del Q-dict + hiperparametros).
+    import pickle
+    model_path = ROOT / "results" / "models" / "improved_seed0.pkl"
+    with open(model_path, "wb") as f:
+        pickle.dump({
+            "Q": agent.Q,
+            "alpha": agent.alpha,
+            "gamma": agent.gamma,
+            "epsilon": agent.epsilon,
+            "epsilon_start": agent.epsilon_start,
+            "epsilon_end": agent.epsilon_end,
+            "epsilon_decay": agent.epsilon_decay,
+            "use_symmetries": agent.use_symmetries,
+            "reward_shaping": agent.reward_shaping,
+            "shaping_weight": agent.shaping_weight,
+            "optimistic_init": agent.optimistic_init,
+            "dual_perspective": agent.dual_perspective,
+        }, f)
+    print(f"Modelo: {model_path.relative_to(ROOT)}")
+
     # Resumen JSON.
     summary = {
         "seed": SEED,

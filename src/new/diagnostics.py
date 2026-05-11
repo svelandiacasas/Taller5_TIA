@@ -48,6 +48,10 @@ from new.base_q_agent import (
     _initial_state,
     _state_to_tuple,
 )
+from new.evaluation import (
+    evaluate_vs_algorithm,  # noqa: F401  (re-export para back-compat)
+    evaluate_vs_random,  # noqa: F401  (re-export para back-compat)
+)
 from new.minimax import MinimaxAgent
 from new.rng_utils import isolated_rng as _isolated_rng
 from new.seeds import set_seed
@@ -349,103 +353,18 @@ def show_credit_assignment_bug(
 # --------------------------------------------------------------------- #
 # Patología 3: no convergencia (multi-semilla)
 # --------------------------------------------------------------------- #
-def _algorithm_move(game: Game, algo: Algorithm, role: int) -> tuple[int, int]:
-    """Devuelve la jugada del `Algorithm` y garantiza ejecución única.
-
-    Algunas ramas de `Algorithm.play2` (caso `s_t5`) ejecutan el movimiento
-    internamente vía `self.juego.play2(...)`; el resto solo retorna coordenadas.
-    Esta función detecta el caso por el contador `turns_played` y solo ejecuta
-    si el `Algorithm` no lo hizo.
-    """
-    turns_before = game.turns_played
-    coords = algo.play1() if role == 1 else algo.play2()
-    if game.turns_played == turns_before:
-        game._execute_move(coords[0], coords[1], role)
-    return tuple(int(x) for x in coords)
-
-
-def evaluate_vs_algorithm(
-    agent: BaseQAgent,
-    n_episodes: int = 200,
-    agent_role: int = 1,
-    seed: int = 0,
-) -> dict:
-    """Evalúa `agent` contra `Algorithm` por `n_episodes` partidas.
-
-    `agent_role`: `1` agente como X (inicia), `2` agente como O.
-    """
-    with _isolated_rng():
-        set_seed(seed)
-        wins = draws = losses = 0
-        for _ in range(n_episodes):
-            game = Game()
-            algo = Algorithm(game)
-            while not game.game_over:
-                cp = game.current_player
-                if cp == agent_role:
-                    r, c = agent.select_action_eval(game)
-                    game._execute_move(r, c, cp)
-                else:
-                    _algorithm_move(game, algo, cp)
-            winner = game.get_winner()
-            if winner == agent_role:
-                wins += 1
-            elif winner == 0:
-                draws += 1
-            else:
-                losses += 1
-        return {
-            "wins": wins, "draws": draws, "losses": losses,
-            "win_rate": wins / n_episodes,
-            "draw_rate": draws / n_episodes,
-            "loss_rate": losses / n_episodes,
-        }
-
-
-def evaluate_vs_random(
-    agent: BaseQAgent,
-    n_episodes: int = 200,
-    agent_role: int = 1,
-    seed: int = 0,
-) -> dict:
-    """Evalúa `agent` contra un oponente uniforme aleatorio."""
-    with _isolated_rng():
-        set_seed(seed)
-        wins = draws = losses = 0
-        for _ in range(n_episodes):
-            game = Game()
-            while not game.game_over:
-                cp = game.current_player
-                if cp == agent_role:
-                    r, c = agent.select_action_eval(game)
-                    game._execute_move(r, c, cp)
-                else:
-                    pos = game.available_positions()
-                    idx = np.random.randint(len(pos))
-                    game._execute_move(int(pos[idx][0]), int(pos[idx][1]), cp)
-            winner = game.get_winner()
-            if winner == agent_role:
-                wins += 1
-            elif winner == 0:
-                draws += 1
-            else:
-                losses += 1
-        return {
-            "wins": wins, "draws": draws, "losses": losses,
-            "win_rate": wins / n_episodes,
-            "draw_rate": draws / n_episodes,
-            "loss_rate": losses / n_episodes,
-        }
-
-
 def _random_agent_win_rate_vs_algorithm(n_episodes: int = 1000, seed: int = 42) -> float:
-    """Línea de referencia: % victorias de un agente totalmente aleatorio."""
+    """Línea de referencia: % victorias de un agente totalmente aleatorio.
+
+    Reusa `make_algorithm_opponent` de `evaluation.py` (mantiene `Algorithm`
+    state por partida) y la lógica defensiva de doble-ejecución."""
+    from new.evaluation import make_algorithm_opponent
     with _isolated_rng():
         set_seed(seed)
+        algo_opp = make_algorithm_opponent()
         wins = 0
         for _ in range(n_episodes):
             game = Game()
-            algo = Algorithm(game)
             while not game.game_over:
                 cp = game.current_player
                 if cp == 1:
@@ -453,7 +372,10 @@ def _random_agent_win_rate_vs_algorithm(n_episodes: int = 1000, seed: int = 42) 
                     idx = np.random.randint(len(pos))
                     game._execute_move(int(pos[idx][0]), int(pos[idx][1]), cp)
                 else:
-                    _algorithm_move(game, algo, cp)
+                    turns_before = game.turns_played
+                    r, c = algo_opp(game)
+                    if game.turns_played == turns_before:
+                        game._execute_move(r, c, cp)
             if game.get_winner() == 1:
                 wins += 1
         return wins / n_episodes
