@@ -1,0 +1,39 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "episodes_per_seed": 10000,
+  "agent_class": "BaseQAgent",
+  "sequential_time_s": 11.04,
+  "parallel": {
+    "2": {
+      "time_s": 7.83,
+      "speedup_vs_seq": 1.41,
+      "q_tables_match_sequential": true
+    },
+    "4": {
+      "time_s": 4.55,
+      "speedup_vs_seq": 2.43,
+      "q_tables_match_sequential": true
+    },
+    "8": {
+      "time_s": 3.6,
+      "speedup_vs_seq": 3.06,
+      "q_tables_match_sequential": true
+    },
+    "10": {
+      "time_s": 2.86,
+      "speedup_vs_seq": 3.86,
+      "q_tables_match_sequential": true
+    }
+  }
+}
