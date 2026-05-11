@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code per-user settings (do not commit)
+.claude/settings.local.json
+
+# Project artifacts (large/binary)
+results/models/*.pkl
+results/models/*.pt
+results/logs/*.csv
+
+# OS
+.DS_Store
+Thumbs.db
