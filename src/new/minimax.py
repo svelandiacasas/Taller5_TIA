@@ -44,6 +44,10 @@ class MinimaxAgent:
 
     # Cache compartido a nivel de clase: clave = (state.tobytes(), player_to_move, agent_player_id)
     _cache: dict[tuple[bytes, int, int], float] = {}
+    # Contador de invocaciones de `_minimax` que NO se sirvieron del cache (es decir,
+    # que ejecutaron cómputo real). Útil para tests deterministas de "el cache evitó
+    # recomputar"; no usar wall-time, que es flaky.
+    _node_visits: int = 0
 
     def __init__(self, player_id: int, cache: bool = True):
         if player_id not in (1, 2):
@@ -54,6 +58,10 @@ class MinimaxAgent:
     @classmethod
     def clear_cache(cls) -> None:
         cls._cache.clear()
+
+    @classmethod
+    def reset_counters(cls) -> None:
+        cls._node_visits = 0
 
     def value(self, state: np.ndarray, player_to_move: int) -> float:
         """Valor minimax del estado, desde la perspectiva de `self.player_id`."""
@@ -116,6 +124,7 @@ class MinimaxAgent:
             if cached is not None:
                 return cached
 
+        MinimaxAgent._node_visits += 1
         legal = _legal_actions(state)
         next_player = _other(player_to_move)
         target = max if player_to_move == self.player_id else min

@@ -127,6 +127,26 @@ def test_select_action_returns_legal_move():
     assert game.game_matrix[r, c] == 0
 
 
+def test_minimax_takes_winning_move_when_available():
+    """Si X tiene dos en línea propias y la celda que cierra está libre,
+    minimax debe escoger exactamente esa (propiedad ofensiva, dual al test
+    de bloqueo defensivo)."""
+    # X X .
+    # O O .
+    # . . .
+    # X juega y gana en (0, 2). Aunque O también amenaza fila 1, X mueve primero
+    # y cerrar la fila superior es la única jugada de valor +1.
+    game = Game()
+    game._execute_move(0, 0, 1)  # X
+    game._execute_move(1, 0, 2)  # O
+    game._execute_move(0, 1, 1)  # X
+    game._execute_move(1, 1, 2)  # O
+    assert game.current_player == 1
+    agent = MinimaxAgent(player_id=1)
+    move = agent.select_action(game)
+    assert move == (0, 2), f"X debió ganar en (0,2), jugó {move}"
+
+
 def test_minimax_blocks_immediate_threat():
     """Si el rival tiene línea de 2 y casilla libre, minimax debe bloquear."""
     # Tablero: O ha jugado dos en la fila superior, X debe bloquear (0,2)
@@ -143,15 +163,27 @@ def test_minimax_blocks_immediate_threat():
     assert move == (1, 2), f"X debió bloquear en (1,2), jugó {move}"
 
 
-def test_cache_reduces_work_on_second_call():
-    """Llamar dos veces a `value` desde el estado inicial debe ser muy rápido la segunda."""
+def test_cache_avoids_recomputation_on_repeated_call():
+    """Llamada repetida a `value` con el mismo estado no debe ejecutar nuevo
+    cómputo de minimax: el contador `_node_visits` queda igual y el tamaño
+    del cache no crece. Comprobado por contadores deterministas, no por tiempo
+    de pared (que sería flaky en CI)."""
     MinimaxAgent.clear_cache()
+    MinimaxAgent.reset_counters()
     agent = MinimaxAgent(player_id=1)
     state = np.zeros((3, 3), dtype=int)
+
     v1 = agent.value(state, player_to_move=1)
-    cache_size_after_first = len(MinimaxAgent._cache)
+    visits_after_first = MinimaxAgent._node_visits
+    cache_after_first = len(MinimaxAgent._cache)
+
     v2 = agent.value(state, player_to_move=1)
-    cache_size_after_second = len(MinimaxAgent._cache)
+    visits_after_second = MinimaxAgent._node_visits
+    cache_after_second = len(MinimaxAgent._cache)
+
     assert v1 == v2
-    assert cache_size_after_first == cache_size_after_second
-    assert cache_size_after_first > 0
+    assert visits_after_first > 0, "primera llamada debió ejecutar cómputo real"
+    assert visits_after_second == visits_after_first, \
+        "segunda llamada debió servirse íntegramente del cache (sin nuevos node visits)"
+    assert cache_after_first == cache_after_second
+    assert cache_after_first > 0
