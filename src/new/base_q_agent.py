@@ -99,14 +99,32 @@ class BaseQAgent:
     def get_Q(self, state_tuple: tuple, action: tuple[int, int]) -> float:
         return self.Q.get((state_tuple, action), 0.0)
 
-    def choose_action(self, state_tuple: tuple, training: bool = True) -> tuple[int, int]:
-        """Política ε-greedy. En `training=False` usa ε=0 (evaluación)."""
+    def choose_action(self, state_tuple: tuple, training: bool = True,
+                      tiebreak_random: bool = False) -> tuple[int, int]:
+        """Política ε-greedy. En `training=False` usa ε=0 (evaluación).
+
+        El parámetro `tiebreak_random` controla la regla de desempate cuando
+        varias acciones empatan en `max(Q)`:
+
+        - `False` (defecto, fiel al profesor): `actions[qs.index(max_q)]`
+          devuelve la PRIMERA acción del orden de `_available_actions`. Es el
+          sesgo "primer índice válido" del notebook; **se preserva en `train`**.
+        - `True` (solo evaluación): `random.choice` entre las empatadas.
+          Indispensable para evaluación: con desempate determinista, el agente
+          juega la misma partida 10 000 veces contra un oponente determinista
+          y la varianza estadística es cero. Aprobado por el usuario en la
+          discusión inicial (pregunta 8: "Variabilidad controlada > determinismo
+          absoluto").
+        """
         actions = _available_actions(np.array(state_tuple).reshape(3, 3))
         eps = self.epsilon if training else 0.0
         if random.random() < eps:
             return random.choice(actions)
         qs = [self.get_Q(state_tuple, a) for a in actions]
         max_q = max(qs)
+        if tiebreak_random:
+            best = [a for a, q in zip(actions, qs) if q == max_q]
+            return random.choice(best)
         return actions[qs.index(max_q)]
 
     def update_Q(self, state_tuple: tuple, action: tuple[int, int],
@@ -154,14 +172,18 @@ class BaseQAgent:
     def select_action_eval(self, game) -> tuple[int, int]:
         """Devuelve `(row, col)` para jugar contra el `Game` del compañero.
 
-        Sin exploración (`epsilon = 0`). Traduce la convención del `Game`
-        (`{0, 1, 2}`) a la convención del agente (`{0, 1, -1}`) antes de
-        consultar la Q-table.
+        Sin exploración (`epsilon = 0`) pero **con desempate aleatorio entre
+        argmax**. La fidelidad bit a bit al profesor solo aplica al bucle de
+        entrenamiento (`train` -> `choose_action(training=True)`), no a esta
+        capa de evaluación, que es código nuestro.
+
+        Traduce la convención del `Game` (`{0, 1, 2}`) a la del agente
+        (`{0, 1, -1}`) antes de consultar la Q-table.
         """
         raw = np.asarray(game.get_game_matrix(), dtype=int)
         state = np.where(raw == 2, -1, raw)
         state_tuple = _state_to_tuple(state)
-        return self.choose_action(state_tuple, training=False)
+        return self.choose_action(state_tuple, training=False, tiebreak_random=True)
 
 
 # ---------------------------------------------------------------------------- #

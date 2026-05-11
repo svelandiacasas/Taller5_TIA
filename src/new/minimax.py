@@ -75,8 +75,18 @@ class MinimaxAgent:
         Si al agente le toca, devuelve las jugadas que MAXIMIZAN el valor para él;
         si le toca al rival, devuelve las que MINIMIZAN (modela un rival óptimo).
         """
-        state = np.asarray(game.get_game_matrix(), dtype=int).copy()
-        player_to_move = int(game.current_player)
+        return self.optimal_actions_from_state(game.get_game_matrix(), int(game.current_player))
+
+    def optimal_actions_from_state(self, state, player_to_move: int) -> list[tuple[int, int]]:
+        """Igual que `optimal_actions` pero sobre `(state, player_to_move)` crudos.
+
+        `state` y `player_to_move` deben venir en convención del `Game` (IDs `1` y `2`).
+        Útil para `diagnostics.py`, que evalúa estados intermedios del entrenamiento
+        sin necesidad de instanciar un `Game`.
+        """
+        if player_to_move not in (1, 2):
+            raise ValueError(f"player_to_move debe ser 1 o 2, recibió {player_to_move}")
+        state = np.asarray(state, dtype=int).copy()
         legal = _legal_actions(state)
         if not legal:
             return []
