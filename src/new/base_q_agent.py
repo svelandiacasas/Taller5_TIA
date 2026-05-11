@@ -190,24 +190,41 @@ class BaseQAgent:
 # Adapter torch-compatible para el `Championship` del compañero
 # ---------------------------------------------------------------------------- #
 class TabularToTorchAdapter(nn.Module):
-    """Permite que un agente tabular se enchufe al `Championship` y a
-    `Train.opponent` cuando esperan `nn.Module` con `forward(state) -> q_values`.
+    """Adapter `nn.Module` para enchufar un agente tabular al `Championship`
+    y a `Train.opponent` del compañero, que esperan `forward(state) -> q_values`.
 
     El `state_tensor` recibido viene en convención del `Game` (valores en
-    `{0, 1, 2}` por casilla). El adapter lo traduce a la convención del agente
-    (`{-1, 0, 1}`) antes de buscar `(state_tuple, action)` en la Q-table.
+    `{0, 1, 2}`). El adapter:
 
-    Política para estados o pares no vistos:
-    - `BaseQAgent` → `default_value = 0.0` (fidelidad estricta al profesor:
-      el `argmax` del torneo recae en la primera posición legal, igual que en
-      el notebook).
-    - `ImprovedQAgent` (Fase 4) → `default_value = optimistic_init` (e.g. 0.5).
+    1. Traduce a la convención del agente (`{-1, 0, 1}`, con `X=+1`, `O=-1`).
+    2. Si `dual_perspective=True`, voltea el tablero según la paridad de
+       fichas para que el jugador-a-mover sea siempre `+1`. Indispensable
+       para `ImprovedQAgent` con dual-perspective.
+    3. Para cada acción consulta:
+       - `agent.get_Q(state_tuple, action)` si `default_value is None`
+         (modo recomendado: delega la política de defaults y la
+         canonicalización D₄ al agente).
+       - `agent.Q.get((state_tuple, action), default_value)` si se
+         proporciona `default_value` (modo directo, fidelidad estricta).
+
+    El uso típico es:
+    - `BaseQAgent`: `TabularToTorchAdapter(agent)` (defaults; `get_Q` devuelve
+      `0.0` para pares no vistos, fiel al profesor).
+    - `ImprovedQAgent` (dual_perspective=True): `TabularToTorchAdapter(agent,
+      dual_perspective=True)` (canonicalización + `optimistic_init` quedan
+      adentro de `agent.get_Q`).
     """
 
-    def __init__(self, tabular_agent, default_value: float = 0.0):
+    def __init__(
+        self,
+        tabular_agent,
+        dual_perspective: bool = False,
+        default_value: float | None = None,
+    ):
         super().__init__()
         self.agent = tabular_agent
-        self.default = float(default_value)
+        self.dual_perspective = dual_perspective
+        self.default_value = default_value
         # Parámetro dummy para que `.to(device)`, `.eval()`, `.parameters()` no fallen.
         self.dummy = nn.Parameter(torch.zeros(1), requires_grad=False)
 
@@ -215,17 +232,33 @@ class TabularToTorchAdapter(nn.Module):
         """`state_tensor`: `[B, 9]` o `[9]` con valores en `{0, 1, 2}`.
 
         Devuelve `[B, 9]` con Q-values para las 9 acciones (incluso ocupadas;
-        el caller —`Championship` o `Train`— filtra por jugadas legales).
+        el caller filtra por jugadas legales).
         """
         if state_tensor.dim() == 1:
             state_tensor = state_tensor.unsqueeze(0)
-        states = state_tensor.detach().cpu().numpy().astype(int)  # [B, 9] en {0, 1, 2}
-        states_translated = np.where(states == 2, -1, states)
-        B = states_translated.shape[0]
-        q = np.full((B, 9), self.default, dtype=np.float32)
+        states = state_tensor.detach().cpu().numpy().astype(int)
+        states_abs = np.where(states == 2, -1, states)  # X=+1, O=-1, vacío=0
+
+        if self.dual_perspective:
+            # Paridad: si #(+1) == #(-1), mueve X (+1); si #(+1) > #(-1), mueve O (-1).
+            n_pos = (states_abs == 1).sum(axis=1)
+            n_neg = (states_abs == -1).sum(axis=1)
+            mover_is_x = n_pos == n_neg
+
+        B = states_abs.shape[0]
+        q = np.zeros((B, 9), dtype=np.float32)
         for b in range(B):
-            state_tuple = tuple(states_translated[b])
+            if self.dual_perspective and not mover_is_x[b]:
+                state_view = -states_abs[b]
+            else:
+                state_view = states_abs[b]
+            state_tuple = tuple(state_view)
             for action_int in range(9):
                 action = (action_int // 3, action_int % 3)
-                q[b, action_int] = self.agent.Q.get((state_tuple, action), self.default)
+                if self.default_value is not None:
+                    q[b, action_int] = self.agent.Q.get(
+                        (state_tuple, action), self.default_value,
+                    )
+                else:
+                    q[b, action_int] = self.agent.get_Q(state_tuple, action)
         return torch.from_numpy(q).to(state_tensor.device)
