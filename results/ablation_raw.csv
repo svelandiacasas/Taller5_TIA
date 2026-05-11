@@ -1,0 +1,201 @@
+variant,seed,metric,value
+Full,0,win_rate_vs_random,0.992
+Full,0,win_rate_vs_algorithm,0.0
+Full,0,loss_rate_vs_minimax,0.0
+Full,0,distance_to_minimax,0.0
+Full,1,win_rate_vs_random,0.996
+Full,1,win_rate_vs_algorithm,0.0
+Full,1,loss_rate_vs_minimax,0.0
+Full,1,distance_to_minimax,0.0
+Full,2,win_rate_vs_random,0.986
+Full,2,win_rate_vs_algorithm,0.0
+Full,2,loss_rate_vs_minimax,0.0
+Full,2,distance_to_minimax,0.0
+Full,3,win_rate_vs_random,0.99
+Full,3,win_rate_vs_algorithm,0.0
+Full,3,loss_rate_vs_minimax,0.0
+Full,3,distance_to_minimax,0.0
+Full,4,win_rate_vs_random,0.992
+Full,4,win_rate_vs_algorithm,0.0
+Full,4,loss_rate_vs_minimax,0.0
+Full,4,distance_to_minimax,0.0
+Full,5,win_rate_vs_random,0.976
+Full,5,win_rate_vs_algorithm,0.0
+Full,5,loss_rate_vs_minimax,0.0
+Full,5,distance_to_minimax,0.0
+Full,6,win_rate_vs_random,0.99
+Full,6,win_rate_vs_algorithm,0.0
+Full,6,loss_rate_vs_minimax,0.0
+Full,6,distance_to_minimax,0.0
+Full,7,win_rate_vs_random,0.996
+Full,7,win_rate_vs_algorithm,0.0
+Full,7,loss_rate_vs_minimax,0.0
+Full,7,distance_to_minimax,0.0
+Full,8,win_rate_vs_random,0.996
+Full,8,win_rate_vs_algorithm,0.0
+Full,8,loss_rate_vs_minimax,0.0
+Full,8,distance_to_minimax,0.0
+Full,9,win_rate_vs_random,0.986
+Full,9,win_rate_vs_algorithm,0.0
+Full,9,loss_rate_vs_minimax,0.0
+Full,9,distance_to_minimax,0.0
+− decay,0,win_rate_vs_random,0.992
+− decay,0,win_rate_vs_algorithm,0.0
+− decay,0,loss_rate_vs_minimax,0.0
+− decay,0,distance_to_minimax,0.0
+− decay,1,win_rate_vs_random,0.994
+− decay,1,win_rate_vs_algorithm,0.0
+− decay,1,loss_rate_vs_minimax,0.0
+− decay,1,distance_to_minimax,0.0
+− decay,2,win_rate_vs_random,0.984
+− decay,2,win_rate_vs_algorithm,0.0
+− decay,2,loss_rate_vs_minimax,0.0
+− decay,2,distance_to_minimax,0.0
+− decay,3,win_rate_vs_random,0.99
+− decay,3,win_rate_vs_algorithm,0.0
+− decay,3,loss_rate_vs_minimax,0.0
+− decay,3,distance_to_minimax,0.0
+− decay,4,win_rate_vs_random,0.992
+− decay,4,win_rate_vs_algorithm,0.0
+− decay,4,loss_rate_vs_minimax,0.0
+− decay,4,distance_to_minimax,0.0
+− decay,5,win_rate_vs_random,0.98
+− decay,5,win_rate_vs_algorithm,0.0
+− decay,5,loss_rate_vs_minimax,0.0
+− decay,5,distance_to_minimax,0.0
+− decay,6,win_rate_vs_random,0.992
+− decay,6,win_rate_vs_algorithm,0.0
+− decay,6,loss_rate_vs_minimax,0.0
+− decay,6,distance_to_minimax,0.0
+− decay,7,win_rate_vs_random,0.996
+− decay,7,win_rate_vs_algorithm,0.0
+− decay,7,loss_rate_vs_minimax,0.0
+− decay,7,distance_to_minimax,0.0
+− decay,8,win_rate_vs_random,0.996
+− decay,8,win_rate_vs_algorithm,0.0
+− decay,8,loss_rate_vs_minimax,0.0
+− decay,8,distance_to_minimax,0.0
+− decay,9,win_rate_vs_random,0.988
+− decay,9,win_rate_vs_algorithm,0.0
+− decay,9,loss_rate_vs_minimax,0.0
+− decay,9,distance_to_minimax,0.0
+− shaping,0,win_rate_vs_random,0.948
+− shaping,0,win_rate_vs_algorithm,0.026
+− shaping,0,loss_rate_vs_minimax,0.082
+− shaping,0,distance_to_minimax,0.010625737898465215
+− shaping,1,win_rate_vs_random,0.974
+− shaping,1,win_rate_vs_algorithm,0.014
+− shaping,1,loss_rate_vs_minimax,0.08
+− shaping,1,distance_to_minimax,0.010538641686182681
+− shaping,2,win_rate_vs_random,0.958
+− shaping,2,win_rate_vs_algorithm,0.05
+− shaping,2,loss_rate_vs_minimax,0.178
+− shaping,2,distance_to_minimax,0.02028639618138428
+− shaping,3,win_rate_vs_random,0.95
+− shaping,3,win_rate_vs_algorithm,0.024
+− shaping,3,loss_rate_vs_minimax,0.076
+− shaping,3,distance_to_minimax,0.02886836027713624
+− shaping,4,win_rate_vs_random,0.936
+− shaping,4,win_rate_vs_algorithm,0.024
+− shaping,4,loss_rate_vs_minimax,0.098
+− shaping,4,distance_to_minimax,0.009924109748978394
+− shaping,5,win_rate_vs_random,0.962
+− shaping,5,win_rate_vs_algorithm,0.018
+− shaping,5,loss_rate_vs_minimax,0.13
+− shaping,5,distance_to_minimax,0.041453719477569595
+− shaping,6,win_rate_vs_random,0.948
+− shaping,6,win_rate_vs_algorithm,0.02
+− shaping,6,loss_rate_vs_minimax,0.04
+− shaping,6,distance_to_minimax,0.0069044879171461515
+− shaping,7,win_rate_vs_random,0.966
+− shaping,7,win_rate_vs_algorithm,0.03
+− shaping,7,loss_rate_vs_minimax,0.064
+− shaping,7,distance_to_minimax,0.007647058823529451
+− shaping,8,win_rate_vs_random,0.942
+− shaping,8,win_rate_vs_algorithm,0.026
+− shaping,8,loss_rate_vs_minimax,0.084
+− shaping,8,distance_to_minimax,0.013641755634638209
+− shaping,9,win_rate_vs_random,0.964
+− shaping,9,win_rate_vs_algorithm,0.022
+− shaping,9,loss_rate_vs_minimax,0.124
+− shaping,9,distance_to_minimax,0.01875732708089095
+− symmetries,0,win_rate_vs_random,0.99
+− symmetries,0,win_rate_vs_algorithm,0.0
+− symmetries,0,loss_rate_vs_minimax,0.0
+− symmetries,0,distance_to_minimax,0.0021810250817884125
+− symmetries,1,win_rate_vs_random,0.974
+− symmetries,1,win_rate_vs_algorithm,0.0
+− symmetries,1,loss_rate_vs_minimax,0.0
+− symmetries,1,distance_to_minimax,0.002808988764044895
+− symmetries,2,win_rate_vs_random,0.964
+− symmetries,2,win_rate_vs_algorithm,0.0
+− symmetries,2,loss_rate_vs_minimax,0.146
+− symmetries,2,distance_to_minimax,0.01711761457758143
+− symmetries,3,win_rate_vs_random,0.984
+− symmetries,3,win_rate_vs_algorithm,0.0
+− symmetries,3,loss_rate_vs_minimax,0.0
+− symmetries,3,distance_to_minimax,0.0017055144968731728
+− symmetries,4,win_rate_vs_random,0.966
+− symmetries,4,win_rate_vs_algorithm,0.0
+− symmetries,4,loss_rate_vs_minimax,0.0
+− symmetries,4,distance_to_minimax,0.02239583333333328
+− symmetries,5,win_rate_vs_random,0.98
+− symmetries,5,win_rate_vs_algorithm,0.0
+− symmetries,5,loss_rate_vs_minimax,0.0
+− symmetries,5,distance_to_minimax,0.009561304836895435
+− symmetries,6,win_rate_vs_random,0.972
+− symmetries,6,win_rate_vs_algorithm,0.0
+− symmetries,6,loss_rate_vs_minimax,0.0
+− symmetries,6,distance_to_minimax,0.015126958400864421
+− symmetries,7,win_rate_vs_random,0.996
+− symmetries,7,win_rate_vs_algorithm,0.0
+− symmetries,7,loss_rate_vs_minimax,0.0
+− symmetries,7,distance_to_minimax,0.0
+− symmetries,8,win_rate_vs_random,0.964
+− symmetries,8,win_rate_vs_algorithm,0.0
+− symmetries,8,loss_rate_vs_minimax,0.0
+− symmetries,8,distance_to_minimax,0.01403887688984884
+− symmetries,9,win_rate_vs_random,0.964
+− symmetries,9,win_rate_vs_algorithm,0.0
+− symmetries,9,loss_rate_vs_minimax,0.0
+− symmetries,9,distance_to_minimax,0.012542759407069504
+− dual persp.,0,win_rate_vs_random,0.952
+− dual persp.,0,win_rate_vs_algorithm,0.0
+− dual persp.,0,loss_rate_vs_minimax,0.532
+− dual persp.,0,distance_to_minimax,0.1629042098840756
+− dual persp.,1,win_rate_vs_random,0.952
+− dual persp.,1,win_rate_vs_algorithm,0.0
+− dual persp.,1,loss_rate_vs_minimax,1.0
+− dual persp.,1,distance_to_minimax,0.22168963451168366
+− dual persp.,2,win_rate_vs_random,0.99
+− dual persp.,2,win_rate_vs_algorithm,0.0
+− dual persp.,2,loss_rate_vs_minimax,0.0
+− dual persp.,2,distance_to_minimax,0.0848056537102474
+− dual persp.,3,win_rate_vs_random,0.956
+− dual persp.,3,win_rate_vs_algorithm,0.0
+− dual persp.,3,loss_rate_vs_minimax,1.0
+− dual persp.,3,distance_to_minimax,0.11014851485148514
+− dual persp.,4,win_rate_vs_random,0.902
+− dual persp.,4,win_rate_vs_algorithm,0.0
+− dual persp.,4,loss_rate_vs_minimax,0.8
+− dual persp.,4,distance_to_minimax,0.2999427590154551
+− dual persp.,5,win_rate_vs_random,0.916
+− dual persp.,5,win_rate_vs_algorithm,0.0
+− dual persp.,5,loss_rate_vs_minimax,0.734
+− dual persp.,5,distance_to_minimax,0.2847519902020821
+− dual persp.,6,win_rate_vs_random,0.986
+− dual persp.,6,win_rate_vs_algorithm,0.0
+− dual persp.,6,loss_rate_vs_minimax,1.0
+− dual persp.,6,distance_to_minimax,0.15572341661824518
+− dual persp.,7,win_rate_vs_random,0.91
+− dual persp.,7,win_rate_vs_algorithm,0.0
+− dual persp.,7,loss_rate_vs_minimax,0.0
+− dual persp.,7,distance_to_minimax,0.1756607929515418
+− dual persp.,8,win_rate_vs_random,0.962
+− dual persp.,8,win_rate_vs_algorithm,0.0
+− dual persp.,8,loss_rate_vs_minimax,0.242
+− dual persp.,8,distance_to_minimax,0.11953883495145634
+− dual persp.,9,win_rate_vs_random,0.924
+− dual persp.,9,win_rate_vs_algorithm,0.0
+− dual persp.,9,loss_rate_vs_minimax,0.722
+− dual persp.,9,distance_to_minimax,0.2573913043478261

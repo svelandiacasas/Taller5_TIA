@@ -1,0 +1,12 @@
+[ablation] 50 jobs × 50000 eps × 500 eval games (workers=10)
+[ablation] tiempo total: 1035.2s (17.3 min)
+
+=== Summary ===
+Traceback (most recent call last):
+  File "C:\Users\svela\Documents\Projects\Universidad\TIA\Taller5\scripts\run_ablations.py", line 35, in <module>
+    main()
+  File "C:\Users\svela\Documents\Projects\Universidad\TIA\Taller5\scripts\run_ablations.py", line 31, in main
+    print(summary.to_string(index=False))
+  File "C:\Users\svela\miniconda3\envs\triqui-rl\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2212' in position 456: character maps to <undefined>

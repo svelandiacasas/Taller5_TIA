@@ -62,6 +62,7 @@ from new.base_q_agent import (
     _initial_state,
     _state_to_tuple,
 )
+from new.rng_utils import isolated_rng as _isolated_rng
 from new.seeds import set_seed
 from new.symmetry import ACTION_MAPS, canonical_state
 
@@ -88,21 +89,6 @@ def _count_open_twos(state: np.ndarray, player: int) -> int:
     if int((antidiag == player).sum()) == 2 and int((antidiag == 0).sum()) == 1:
         count += 1
     return count
-
-
-# ---------------------------------------------------------------------- #
-# RNG isolation (mismo helper que en diagnostics.py — duplicado a propósito
-# para no acoplar improved_q_agent con diagnostics)
-# ---------------------------------------------------------------------- #
-@contextlib.contextmanager
-def _isolated_rng():
-    py_state = random.getstate()
-    np_state = np.random.get_state()
-    try:
-        yield
-    finally:
-        random.setstate(py_state)
-        np.random.set_state(np_state)
 
 
 # ---------------------------------------------------------------------- #

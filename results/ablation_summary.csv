@@ -1,0 +1,21 @@
+variant,metric,mean,ci_low,ci_high,n_seeds,p_value_vs_full
+Full,win_rate_vs_random,0.99,0.9861999999999999,0.9934,10,1.0
+Full,win_rate_vs_algorithm,0.0,0.0,0.0,10,1.0
+Full,loss_rate_vs_minimax,0.0,0.0,0.0,10,1.0
+Full,distance_to_minimax,0.0,0.0,0.0,10,1.0
+− decay,win_rate_vs_random,0.9904,0.9872,0.9932000000000001,10,0.4876
+− decay,win_rate_vs_algorithm,0.0,0.0,0.0,10,1.0
+− decay,loss_rate_vs_minimax,0.0,0.0,0.0,10,1.0
+− decay,distance_to_minimax,0.0,0.0,0.0,10,1.0
+− shaping,win_rate_vs_random,0.9548,0.9478,0.9617999999999999,10,0.0
+− shaping,win_rate_vs_algorithm,0.0254,0.0206,0.0316,10,0.0
+− shaping,loss_rate_vs_minimax,0.09559999999999999,0.0744,0.11920000000000001,10,0.0
+− shaping,distance_to_minimax,0.016864759472592118,0.01111497572574404,0.023775334749014127,10,0.0
+− symmetries,win_rate_vs_random,0.9753999999999999,0.9688000000000001,0.9826,10,0.0
+− symmetries,win_rate_vs_algorithm,0.0,0.0,0.0,10,1.0
+− symmetries,loss_rate_vs_minimax,0.014599999999999998,0.0,0.04379999999999999,10,0.4445
+− symmetries,distance_to_minimax,0.009747887578829939,0.005260878472927021,0.01423648118972167,10,0.0
+− dual persp.,win_rate_vs_random,0.945,0.9269999999999999,0.9632,10,0.0
+− dual persp.,win_rate_vs_algorithm,0.0,0.0,0.0,10,1.0
+− dual persp.,loss_rate_vs_minimax,0.603,0.3698,0.8244,10,0.0
+− dual persp.,distance_to_minimax,0.18725571110440983,0.14475450582265414,0.23159788968282613,10,0.0

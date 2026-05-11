@@ -49,6 +49,7 @@ from new.base_q_agent import (
     _state_to_tuple,
 )
 from new.minimax import MinimaxAgent
+from new.rng_utils import isolated_rng as _isolated_rng
 from new.seeds import set_seed
 from triqui import Game
 from triqui_algorithm import Algorithm
@@ -65,20 +66,6 @@ def _agent_state_to_game_state(state: np.ndarray) -> np.ndarray:
 def _agent_player_to_game_player(player: int) -> int:
     """`+1` (X) → `1`; `-1` (O) → `2`."""
     return 1 if player == X else 2
-
-
-@contextlib.contextmanager
-def _isolated_rng():
-    """Aísla los RNGs de `random` y `numpy` durante el bloque (los restaura
-    al salir). Indispensable cuando una evaluación intercalada en medio del
-    entrenamiento no debe alterar la trayectoria posterior del agente."""
-    py_state = random.getstate()
-    np_state = np.random.get_state()
-    try:
-        yield
-    finally:
-        random.setstate(py_state)
-        np.random.set_state(np_state)
 
 
 def _ensure_dirs(output_dir: Path) -> tuple[Path, Path]:
