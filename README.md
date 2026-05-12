@@ -116,11 +116,10 @@ Ejecuta el pipeline completo desde el clon limpio del repo:
 python scripts/reproduce_pipeline.py
 ```
 
-Este script encadena las etapas en el orden correcto y mide tiempos por etapa.
-Tiempos medidos en el laptop del autor (Intel i7-14700K · CPU only, sin GPU):
-
-Tiempos medidos en una corrida limpia desde `results/` vacío
-(Intel i7-14700K · CPU only · Windows 11 · Python 3.10):
+Este script encadena las 9 etapas en el orden correcto y mide tiempos por
+etapa. Tiempos consolidados en una corrida limpia desde `results/` vacío
+(Intel i7-14700K · CPU only · Windows 11 · Python 3.10, datos en
+`results/logs/pipeline_times.json`):
 
 | # | Etapa | Comando | Tiempo (s) | Tiempo (min) |
 |---|-------|---------|-----------:|-------------:|
@@ -128,12 +127,12 @@ Tiempos medidos en una corrida limpia desde `results/` vacío
 | 2 | BaseQAgent (1 seed, 10k eps) | `scripts/train_base.py`                       |     2.3 |  0.04 |
 | 3 | ImprovedQAgent (1 seed, 50k eps) | `scripts/train_improved.py`               |   236.9 |  3.95 |
 | 4 | Maestro + DQN + SARSA curriculum | `scripts/train_companero_agents.py`       |   859.2 | 14.32 |
-| 5 | Tabla de eficiencia | `scripts/build_training_times.py`                      |    ~3   |  0.05 |
+| 5 | Tabla de eficiencia | `scripts/build_training_times.py`                      |     3.0 |  0.05 |
 | 6 | Diagnósticos del Base (10 seeds) | `scripts/run_diagnostics.py`              |    56.1 |  0.94 |
 | 7 | Ablation 5×10 seeds × 50k eps + bootstrap | `scripts/run_ablations.py`       |   953.1 | 15.88 |
 | 8 | Robustez 4×3×5×6×200 partidas | `scripts/run_robustness.py`                  |    55.1 |  0.92 |
-| 9 | Ejecutar el notebook | `jupyter nbconvert --execute …`                       |    18.8 |  0.31 |
-| **TOTAL** | | | **~2 320** | **~38.7** |
+| 9 | Ejecutar el notebook | `jupyter nbconvert --execute …`                       |    19.3 |  0.32 |
+| **TOTAL** | | | **2 324.6** | **38.74** |
 
 > Los tiempos exactos de tu corrida quedan en `results/logs/pipeline_times.json`
 > después de ejecutar `scripts/reproduce_pipeline.py`.

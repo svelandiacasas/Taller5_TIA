@@ -1,17 +1,17 @@
 {
-  "total_seconds": 2302.38,
-  "total_minutes": 38.37,
+  "total_seconds": 2324.57,
+  "total_minutes": 38.74,
   "steps": {
     "pytest": 139.64,
     "train_base": 2.3,
     "train_improved": 236.89,
     "train_companero_agents": 859.23,
+    "build_training_times": 3.0,
     "run_diagnostics": 56.13,
     "run_ablations": 953.07,
     "run_robustness": 55.06,
-    "nbconvert_notebook": 0.04
+    "nbconvert_notebook": 19.25
   },
-  "failures": [
-    "nbconvert_notebook"
-  ]
+  "failures": [],
+  "note": "Pipeline regenerado en dos fases: 7 etapas en una corrida limpia del orquestador (reproduce_pipeline.py vieja, 2302s, falló nbconvert por python -m jupyter inválido). Tras corregir el script (jupyter nbconvert directo + añadir build_training_times), esas 2 etapas se re-corrieron aisladas (~22s combinado). Tiempos consolidados aquí; re-correr scripts/reproduce_pipeline.py desde cero en limpio reproduciría las 9 etapas del tirón."
 }
