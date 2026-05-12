@@ -1,0 +1,17 @@
+{
+  "total_seconds": 2302.38,
+  "total_minutes": 38.37,
+  "steps": {
+    "pytest": 139.64,
+    "train_base": 2.3,
+    "train_improved": 236.89,
+    "train_companero_agents": 859.23,
+    "run_diagnostics": 56.13,
+    "run_ablations": 953.07,
+    "run_robustness": 55.06,
+    "nbconvert_notebook": 0.04
+  },
+  "failures": [
+    "nbconvert_notebook"
+  ]
+}

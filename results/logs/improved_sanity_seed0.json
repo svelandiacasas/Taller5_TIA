@@ -1,8 +1,8 @@
 {
   "seed": 0,
   "episodes": 50000,
-  "training_time_s_with_symmetries": 378.06,
-  "training_time_s_without_symmetries": 96.86,
+  "training_time_s_with_symmetries": 196.68,
+  "training_time_s_without_symmetries": 36.42,
   "q_size_with_symmetries": 1939,
   "q_size_without_symmetries": 7248,
   "q_reduction_factor": 3.74,

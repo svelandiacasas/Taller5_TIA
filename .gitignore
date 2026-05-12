@@ -18,8 +18,10 @@ env/
 .vscode/
 .idea/
 
-# Claude Code per-user settings (do not commit)
+# Claude Code per-user settings and runtime state (do not commit)
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
+.claude/scheduled_tasks/
 
 # Project artifacts (large/binary)
 results/models/*.pkl
