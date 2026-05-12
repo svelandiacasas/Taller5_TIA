@@ -21,12 +21,12 @@ import pytest
 import torch
 
 from triqui import Game
-from new.base_q_agent import (
+from base_q_agent import (
     BaseQAgent,
     TabularToTorchAdapter,
     _check_winner,
 )
-from new.seeds import set_seed
+from seeds import set_seed
 
 
 # --------------------------------------------------------------------- #
@@ -239,7 +239,7 @@ def test_adapter_default_value_for_improved_agent_use_case():
 
 
 # --------------------------------------------------------------------- #
-# 5. select_action_eval contra el `Game` del compañero
+# 5. select_action_eval contra el entorno `Game`
 # --------------------------------------------------------------------- #
 def test_select_action_eval_returns_legal_move_on_empty_board():
     agent = BaseQAgent()

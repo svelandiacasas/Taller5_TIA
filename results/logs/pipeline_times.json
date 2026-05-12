@@ -5,7 +5,7 @@
     "pytest": 139.64,
     "train_base": 2.3,
     "train_improved": 236.89,
-    "train_companero_agents": 859.23,
+    "train_neural_agents": 859.23,
     "build_training_times": 3.0,
     "run_diagnostics": 56.13,
     "run_ablations": 953.07,

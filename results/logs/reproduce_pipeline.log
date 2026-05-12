@@ -7,7 +7,7 @@
 --- [pytest] OK  en 139.6s (2.33 min)
 
 --- [train_base] scripts/train_base.py
-=== train_base.py — seed=0, episodes=10000 ===
+=== train_base.py ï¿½ seed=0, episodes=10000 ===
   entrenamiento: 1.07s, |Q|=2765
   guardado: results\models\base_seed0.pkl
 --- [train_base] OK  en 2.3s (0.04 min)
@@ -19,11 +19,11 @@ Entrenamiento full toggles: 196.7s para 50000 eps
   |Q| final = 1939
   epsilon final = 0.0500
 
-Entrenamiento sin simetrías: 36.4s
-  |Q| sin simetrías = 7248
-  Reducción: 3.74×
+Entrenamiento sin simetrï¿½as: 36.4s
+  |Q| sin simetrï¿½as = 7248
+  Reducciï¿½n: 3.74ï¿½
 
-Evaluación con tiebreak random:
+Evaluaciï¿½n con tiebreak random:
   vs Random (n=2000):    W=1980  D=  20  L=   0  -> WR=0.990
   vs Algorithm (n=200):  W=   0  D= 200  L=   0  -> WR=0.000  DR=1.000
 
@@ -32,8 +32,8 @@ Modelo: results\models\improved_seed0.pkl
 Resumen: results\logs\improved_sanity_seed0.json
 --- [train_improved] OK  en 236.9s (3.95 min)
 
---- [train_companero_agents] scripts/train_companero_agents.py
-=== train_companero_agents.py â€” device=cpu, salida=C:\Users\svela\Documents\Projects\Universidad\TIA\Taller5\results\models ===
+--- [train_neural_agents] scripts/train_neural_agents.py
+=== train_neural_agents.py â€” device=cpu, salida=C:\Users\svela\Documents\Projects\Universidad\TIA\Taller5\results\models ===
 
 === Maestro (DQN vs Random, 20000 eps, seed=0) ===
 â–¶ Motor RL Iniciado. Entrenando en cpu por 20000 episodios...
@@ -93,7 +93,7 @@ Episodio 20000 | Recompensa Total:  -3.0 | Epsilon: 0.050
   guardado: sarsa_curriculum.pt
 
 === Tiempo total: 857.4s (14.3 min) ===
---- [train_companero_agents] OK  en 859.2s (14.32 min)
+--- [train_neural_agents] OK  en 859.2s (14.32 min)
 
 --- [run_diagnostics] scripts/run_diagnostics.py
 [diagnostics] seeds=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], episodes=10000, eval_every=500, eval_episodes=200
@@ -108,7 +108,7 @@ Figuras generadas:
 --- [run_diagnostics] OK  en 56.1s (0.94 min)
 
 --- [run_ablations] scripts/run_ablations.py
-[ablation] 50 jobs × 50000 eps × 500 eval games (workers=10)
+[ablation] 50 jobs ï¿½ 50000 eps ï¿½ 500 eval games (workers=10)
 [ablation] tiempo total: 951.0s (15.8 min)
 
 === Summary (UTF-8 forced) ===
@@ -308,7 +308,7 @@ Etapa                       Tiempo (s)   Tiempo (min)
 pytest                          139.64           2.33
 train_base                        2.30           0.04
 train_improved                  236.89           3.95
-train_companero_agents          859.23          14.32
+train_neural_agents          859.23          14.32
 run_diagnostics                  56.13           0.94
 run_ablations                   953.07          15.88
 run_robustness                   55.06           0.92

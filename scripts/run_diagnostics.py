@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from new.diagnostics import run_all_diagnostics  # noqa: E402
+from diagnostics import run_all_diagnostics  # noqa: E402
 
 
 def main() -> None:

@@ -11,8 +11,8 @@ sin re-entrenar):
    Este es el *killer chart* del notebook.
 
 3. `diagnostics_no_convergence.{png,csv}` — multi-semilla del win rate vs
-   el `Algorithm` del compañero a lo largo del entrenamiento; alta varianza
-   y ausencia de tendencia clara.
+   el agente heurístico `Algorithm` a lo largo del entrenamiento; alta
+   varianza y ausencia de tendencia clara.
 
 Todas las funciones admiten `output_dir` para escribir en un directorio
 arbitrario (el smoke test usa `tmp_path`); por defecto escriben en `results/`.
@@ -38,7 +38,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-from new.base_q_agent import (
+from base_q_agent import (
     BaseQAgent,
     EMPTY,
     O,
@@ -48,13 +48,13 @@ from new.base_q_agent import (
     _initial_state,
     _state_to_tuple,
 )
-from new.evaluation import (
+from evaluation import (
     evaluate_vs_algorithm,  # noqa: F401  (re-export para back-compat)
     evaluate_vs_random,  # noqa: F401  (re-export para back-compat)
 )
-from new.minimax import MinimaxAgent
-from new.rng_utils import isolated_rng as _isolated_rng
-from new.seeds import set_seed
+from minimax import MinimaxAgent
+from rng_utils import isolated_rng as _isolated_rng
+from seeds import set_seed
 from triqui import Game
 from triqui_algorithm import Algorithm
 
@@ -358,7 +358,7 @@ def _random_agent_win_rate_vs_algorithm(n_episodes: int = 1000, seed: int = 42) 
 
     Reusa `make_algorithm_opponent` de `evaluation.py` (mantiene `Algorithm`
     state por partida) y la lógica defensiva de doble-ejecución."""
-    from new.evaluation import make_algorithm_opponent
+    from evaluation import make_algorithm_opponent
     with _isolated_rng():
         set_seed(seed)
         algo_opp = make_algorithm_opponent()
@@ -409,7 +409,7 @@ def show_no_convergence(
     """Para cada semilla, entrena `BaseQAgent` y al final de cada bloque
     de `eval_every` episodios mide win rate vs DOS oponentes:
 
-    - **Algorithm** (heurístico fuerte del compañero): banda esperablemente
+    - **Algorithm** (heurístico fuerte de referencia): banda esperablemente
       pegada al 0 — el agente base es incapaz de vencerlo. Es un *upper bound
       negativo* sobre la calidad de la política aprendida.
     - **Random** (baseline débil): donde se ve la varianza entre semillas.

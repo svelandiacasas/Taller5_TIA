@@ -6,7 +6,7 @@ nivel de clase). No usamos alpha-beta porque para este orden de magnitud
 la memoización ya domina y los valores cacheados con cutoffs requieren
 flags de bound que no aportan valor práctico aquí.
 
-Convención: trabaja sobre la representación del `Game` del compañero
+Convención: trabaja sobre la representación del entorno `Game`
 (IDs `1` y `2`, vacío `0`). El `value` se reporta desde la perspectiva
 del jugador asignado al agente: `+1` victoria, `0` empate, `-1` derrota.
 """

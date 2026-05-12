@@ -1,7 +1,7 @@
 """Q-Learning tabular mejorado para triqui.
 
-`ImprovedQAgent` corrige las patologías diagnosticadas en `BaseQAgent` (Fase 3)
-y es la apuesta del taller para superar al strawman del profesor:
+`ImprovedQAgent` corrige las patologías diagnosticadas en `BaseQAgent`
+y supera al strawman de referencia:
 
 - **Dual perspective** (`dual_perspective=True`): Q se indexa por estados en
   la vista del jugador-a-mover (siempre `+1`). El bucle de entrenamiento usa
@@ -53,7 +53,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from new.base_q_agent import (
+from base_q_agent import (
     O,
     X,
     TabularToTorchAdapter,
@@ -62,9 +62,9 @@ from new.base_q_agent import (
     _initial_state,
     _state_to_tuple,
 )
-from new.rng_utils import isolated_rng as _isolated_rng
-from new.seeds import set_seed
-from new.symmetry import ACTION_MAPS, canonical_state
+from rng_utils import isolated_rng as _isolated_rng
+from seeds import set_seed
+from symmetry import ACTION_MAPS, canonical_state
 
 
 # ---------------------------------------------------------------------- #
@@ -310,7 +310,7 @@ class ImprovedQAgent:
             current_player = -current_player
 
     # ------------------------------------------------------------------ #
-    # Wrapper para `Game` del compañero
+    # Wrapper para el entorno `Game`
     # ------------------------------------------------------------------ #
     def select_action_eval(self, game) -> tuple[int, int]:
         """Sin exploración (ε=0) y con tiebreak aleatorio entre argmax.

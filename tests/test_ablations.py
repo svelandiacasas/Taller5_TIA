@@ -9,7 +9,7 @@ Tiempo objetivo: < 30 s.
 import pandas as pd
 import pytest
 
-from new.ablations import (
+from ablations import (
     ABLATION_VARIANTS,
     METRICS,
     compute_distance_to_minimax,
@@ -17,7 +17,7 @@ from new.ablations import (
     evaluate_vs_minimax,
     run_ablation_study,
 )
-from new.improved_q_agent import ImprovedQAgent
+from improved_q_agent import ImprovedQAgent
 
 
 # --------------------------------------------------------------------- #

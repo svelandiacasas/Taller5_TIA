@@ -14,7 +14,7 @@ existing = os.environ.get("PYTHONPATH", "")
 if SRC not in existing.split(os.pathsep):
     os.environ["PYTHONPATH"] = f"{SRC}{os.pathsep}{existing}" if existing else SRC
 
-from new.ablations import run_ablation_study  # noqa: E402
+from ablations import run_ablation_study  # noqa: E402
 
 
 def main() -> None:

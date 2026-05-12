@@ -13,7 +13,7 @@ Cubrimos:
 import numpy as np
 import pytest
 
-from new.bootstrap import bootstrap_ci, paired_bootstrap_test
+from bootstrap import bootstrap_ci, paired_bootstrap_test
 
 
 # --------------------------------------------------------------------- #

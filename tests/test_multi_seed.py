@@ -11,9 +11,9 @@ import multiprocessing as mp
 import numpy as np
 import pytest
 
-from new.base_q_agent import BaseQAgent
-from new.multi_seed import run_parallel_seeds
-from new.seeds import set_seed
+from base_q_agent import BaseQAgent
+from multi_seed import run_parallel_seeds
+from seeds import set_seed
 
 
 # --------------------------------------------------------------------- #

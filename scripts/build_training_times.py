@@ -87,11 +87,11 @@ def get_training_times() -> dict[str, float]:
             times["BaseQAgent"] = steps["train_base"]
         if "train_improved" in steps:
             times["ImprovedQAgent"] = steps["train_improved"]
-        # train_companero_agents incluye Maestro + DQN + SARSA;
-        # repartirlos requiere parsear el log del compañero.
+        # train_neural_agents incluye Maestro + DQN + SARSA;
+        # repartirlos requiere parsear el log de la corrida.
         comp_log_candidates = [
-            LOGS / "reproduce_train_companero_agents.log",
-            LOGS / "companero_train.log",
+            LOGS / "reproduce_train_neural_agents.log",
+            LOGS / "train_neural_agents.log",
             LOGS / "reproduce_pipeline.log",
         ]
         for p in comp_log_candidates:

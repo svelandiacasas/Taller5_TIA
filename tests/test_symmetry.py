@@ -2,7 +2,7 @@
 import numpy as np
 import pytest
 
-from new.symmetry import (
+from symmetry import (
     ACTION_MAPS,
     INVERSE_MAP,
     _apply_transform,

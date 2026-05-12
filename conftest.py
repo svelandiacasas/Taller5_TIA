@@ -1,9 +1,10 @@
-"""Pytest bootstrap: expone `src/` en `sys.path` para que los tests importen
-los módulos heredados (`triqui`, `master_RL`, ...) y el paquete nuevo (`new.*`).
+"""Pytest bootstrap: expone `src/` en `sys.path` para que los tests puedan
+importar los módulos del proyecto (`triqui`, `master_RL`, `base_q_agent`,
+`improved_q_agent`, ...).
 
 Además propaga `PYTHONPATH` al entorno: los procesos hijos lanzados por
-`multiprocessing.Pool` (Fase 5) usan `spawn` en Windows y NO heredan las
-modificaciones de `sys.path` del padre — sí heredan variables de entorno.
+`multiprocessing.Pool` (`multi_seed.py`) usan `spawn` en Windows y NO heredan
+las modificaciones de `sys.path` del padre — sí heredan variables de entorno.
 """
 import os
 import sys

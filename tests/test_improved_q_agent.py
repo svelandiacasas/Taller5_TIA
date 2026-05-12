@@ -13,7 +13,7 @@ Cubrimos:
    terminales triviales.
 7. Reducción del tamaño de Q por simetrías (≥ 4×).
 8. Adapter: shapes correctos y propagación de dual_perspective.
-9. `select_action_eval` contra `Game` del compañero (movimientos legales).
+9. `select_action_eval` contra el entorno `Game` (movimientos legales).
 10. Aprende mejor que el agente base contra Random.
 """
 import numpy as np
@@ -21,16 +21,16 @@ import pytest
 import torch
 
 from triqui import Game
-from new.improved_q_agent import (
+from improved_q_agent import (
     ImprovedQAgent,
     _count_open_twos,
 )
-from new.base_q_agent import (
+from base_q_agent import (
     BaseQAgent,
     TabularToTorchAdapter,
     _state_to_tuple,
 )
-from new.symmetry import canonical_state, ACTION_MAPS
+from symmetry import canonical_state, ACTION_MAPS
 
 
 # --------------------------------------------------------------------- #
@@ -307,7 +307,7 @@ def test_improved_agent_beats_base_at_winning_random():
     base_wr = base._wr_vs_random_smoke = None  # placeholder
     # Inline eval para evitar dependencia con diagnostics
     def _wr_vs_random(agent, n=300, seed=42):
-        from new.seeds import set_seed
+        from seeds import set_seed
         set_seed(seed)
         wins = 0
         for _ in range(n):

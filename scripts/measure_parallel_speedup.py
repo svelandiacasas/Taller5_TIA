@@ -20,9 +20,9 @@ existing = os.environ.get("PYTHONPATH", "")
 if SRC not in existing.split(os.pathsep):
     os.environ["PYTHONPATH"] = f"{SRC}{os.pathsep}{existing}" if existing else SRC
 
-from new.base_q_agent import BaseQAgent  # noqa: E402
-from new.multi_seed import run_parallel_seeds  # noqa: E402
-from new.seeds import set_seed  # noqa: E402
+from base_q_agent import BaseQAgent  # noqa: E402
+from multi_seed import run_parallel_seeds  # noqa: E402
+from seeds import set_seed  # noqa: E402
 
 
 def measure_sequential(seeds: list[int], episodes: int) -> tuple[float, list[BaseQAgent]]:

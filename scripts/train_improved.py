@@ -23,8 +23,8 @@ import matplotlib  # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from new.improved_q_agent import ImprovedQAgent  # noqa: E402
-from new.diagnostics import evaluate_vs_algorithm, evaluate_vs_random  # noqa: E402
+from improved_q_agent import ImprovedQAgent  # noqa: E402
+from diagnostics import evaluate_vs_algorithm, evaluate_vs_random  # noqa: E402
 
 
 def main() -> None:

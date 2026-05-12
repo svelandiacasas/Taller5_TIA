@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 
 from triqui import Game
-from new.minimax import MinimaxAgent
+from minimax import MinimaxAgent
 
 
 # --------------------------------------------------------------------- #

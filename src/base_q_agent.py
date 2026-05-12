@@ -1,6 +1,7 @@
-"""Agente Q-Learning tabular fiel al notebook del profesor.
+"""Agente Q-Learning tabular como réplica fiel del agente de referencia.
 
-`BaseQAgent` replica bit a bit el código de `docs/referencia_profesor.md`:
+`BaseQAgent` replica bit a bit el agente Q-Learning de referencia presentado
+en la sesión del curso:
 
 - Convención `X = 1`, `O = -1`, `EMPTY = 0`.
 - `Q` única compartida entre X y O (defecto intencional).
@@ -9,12 +10,12 @@
 - 10 000 episodios por defecto.
 
 Las patologías son intencionales — este agente existe como strawman para que
-`diagnostics.py` (Fase 3) las exhiba empíricamente; **no** debe "mejorarse".
+`diagnostics.py` las exhiba empíricamente; **no** debe "mejorarse".
 
-La traducción a la convención del compañero (`Game` con IDs `1` y `2`) vive
+La traducción a la convención del entorno `Game` (IDs `1` y `2`) vive
 exclusivamente en wrappers (`select_action_eval` y `TabularToTorchAdapter`),
-no en el núcleo del agente, para mantener la fidelidad línea a línea con el
-notebook del profesor.
+no en el núcleo del agente, para mantener la fidelidad línea a línea con la
+implementación de referencia.
 """
 from __future__ import annotations
 
@@ -25,7 +26,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from new.seeds import set_seed
+from seeds import set_seed
 
 
 # Convenciones del profesor (no tocar)
@@ -48,9 +49,9 @@ def _available_actions(state: np.ndarray) -> list[tuple[int, int]]:
 def _check_winner(state: np.ndarray):
     """Devuelve `+1` si gana X, `-1` si gana O, `0` empate, `None` en curso.
 
-    Réplica literal del `check_winner` del profesor: usa `sum`/`abs`/`np.sign`
+    Réplica literal del `check_winner` de referencia: usa `sum`/`abs`/`np.sign`
     sobre filas, columnas y diagonales. Equivalente a la lógica del `Game` del
-    compañero, pero opera en la convención `±1` (no en `1/2`).
+    entorno, pero opera en la convención `±1` (no en `1/2`).
     """
     for i in range(3):
         if abs(sum(state[i, :])) == 3:
@@ -167,15 +168,16 @@ class BaseQAgent:
                 current_player *= -1
 
     # ------------------------------------------------------------------ #
-    # Wrapper para usarlo como oponente del `Game` del compañero (1, 2)
+    # Wrapper para usarlo como oponente del entorno `Game` (1, 2)
     # ------------------------------------------------------------------ #
     def select_action_eval(self, game) -> tuple[int, int]:
-        """Devuelve `(row, col)` para jugar contra el `Game` del compañero.
+        """Devuelve `(row, col)` para jugar contra el entorno `Game`.
 
         Sin exploración (`epsilon = 0`) pero **con desempate aleatorio entre
-        argmax**. La fidelidad bit a bit al profesor solo aplica al bucle de
-        entrenamiento (`train` -> `choose_action(training=True)`), no a esta
-        capa de evaluación, que es código nuestro.
+        argmax**. La fidelidad bit a bit a la implementación de referencia
+        solo aplica al bucle de entrenamiento
+        (`train` -> `choose_action(training=True)`); esta capa de evaluación
+        añade el desempate aleatorio para reducir la varianza de las métricas.
 
         Traduce la convención del `Game` (`{0, 1, 2}`) a la del agente
         (`{0, 1, -1}`) antes de consultar la Q-table.
@@ -187,11 +189,11 @@ class BaseQAgent:
 
 
 # ---------------------------------------------------------------------------- #
-# Adapter torch-compatible para el `Championship` del compañero
+# Adapter torch-compatible para el `Championship` y `Train.opponent`
 # ---------------------------------------------------------------------------- #
 class TabularToTorchAdapter(nn.Module):
     """Adapter `nn.Module` para enchufar un agente tabular al `Championship`
-    y a `Train.opponent` del compañero, que esperan `forward(state) -> q_values`.
+    y a `Train.opponent`, que esperan `forward(state) -> q_values`.
 
     El `state_tensor` recibido viene en convención del `Game` (valores en
     `{0, 1, 2}`). El adapter:

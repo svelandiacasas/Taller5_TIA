@@ -45,16 +45,16 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-from new.bootstrap import bootstrap_ci, paired_bootstrap_test  # noqa: E402
-from new.evaluation import (  # noqa: E402
+from bootstrap import bootstrap_ci, paired_bootstrap_test  # noqa: E402
+from evaluation import (  # noqa: E402
     compute_distance_to_minimax,
     evaluate_vs_algorithm,
     evaluate_vs_minimax,
     evaluate_vs_random,
 )
-from new.minimax import MinimaxAgent  # noqa: E402
-from new.rng_utils import isolated_rng  # noqa: E402
-from new.seeds import set_seed  # noqa: E402
+from minimax import MinimaxAgent  # noqa: E402
+from rng_utils import isolated_rng  # noqa: E402
+from seeds import set_seed  # noqa: E402
 from triqui import Game  # noqa: E402
 
 
@@ -155,8 +155,8 @@ def evaluate_agent_metrics(
 # ---------------------------------------------------------------------- #
 def _train_and_evaluate_variant(args: tuple) -> dict:
     """Worker: entrena una variante para una semilla y evalúa las 4 métricas."""
-    from new.improved_q_agent import ImprovedQAgent  # import local en worker
-    from new.seeds import set_seed as _set_seed
+    from improved_q_agent import ImprovedQAgent  # import local en worker
+    from seeds import set_seed as _set_seed
 
     variant_name, variant_kwargs, seed, episodes, eval_games, agent_role = args
     _set_seed(seed)

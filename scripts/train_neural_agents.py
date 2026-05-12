@@ -1,18 +1,14 @@
-"""Pre-cómputo de los agentes neuronales del compañero (DQN + SARSA + Maestro).
+"""Pre-cómputo de los agentes neuronales (DQN + SARSA + Maestro).
 
-Pipeline simplificado: 1 agente por familia (no 4), curriculum vs Maestro →
+Pipeline simplificado: 1 agente por familia, curriculum vs Maestro →
 vs Algorithm → vs Random. Modelos guardados en `results/models/`.
 
 Uso típico (correr una sola vez):
 
-    python scripts/train_companero_agents.py
+    python scripts/train_neural_agents.py
 
-Tiempo estimado en CPU: ~15 min. Reusamos `master_RL.py`, `triqui_train.py`
-y `triqui_algorithm.py` del compañero — son la justificación de mantener su
-código en `src/`.
-
-Nota: el archivo se llama `train_companero_agents.py` (sin la `ñ`) para
-evitar problemas de codificación al ejecutar desde la consola de Windows.
+Tiempo estimado en CPU: ~15 min. Usa los módulos `master_RL.py`,
+`triqui_train.py` y `triqui_algorithm.py` definidos en `src/`.
 """
 import os
 import sys
@@ -36,7 +32,7 @@ if SRC not in existing.split(os.pathsep):
 import torch  # noqa: E402
 import torch.optim as optim  # noqa: E402
 
-from new.seeds import set_seed  # noqa: E402
+from seeds import set_seed  # noqa: E402
 from master_RL import EpsilonGreedy, MasterDQN, MasterSARSA, MotorRL  # noqa: E402
 from triqui_algorithm import Algorithm  # noqa: E402
 from triqui_train import Train  # noqa: E402
@@ -91,7 +87,7 @@ def train_phase(
     """Entrena `agent` por `episodes` episodios contra `opponent` con la
     estrategia de exploración indicada."""
     env = Train(device=device, rewards_config=[3.0, 1.0, -3.0, -10.0])
-    env.opponent = opponent  # asignación post-instanciación (patrón del compañero)
+    env.opponent = opponent  # asignación post-instanciación (patrón del entorno)
 
     optimizer = optim.Adam(agent.parameters(), lr=lr)
     exploration = EpsilonGreedy(
@@ -171,7 +167,7 @@ def main() -> None:
     models_dir = ROOT / "results" / "models"
     models_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"=== train_companero_agents.py — device={device}, salida={models_dir} ===")
+    print(f"=== train_neural_agents.py — device={device}, salida={models_dir} ===")
     t0 = time.time()
 
     maestro = train_maestro(seed=0, episodes=20_000, device=device)

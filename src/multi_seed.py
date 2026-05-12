@@ -43,7 +43,7 @@ def _train_one_seed(args: tuple) -> dict:
     agent_class, agent_kwargs, train_kwargs, seed = args
     # Importar set_seed dentro del worker para no asumir que el padre ya lo
     # importó (en `spawn`, el worker arranca limpio).
-    from new.seeds import set_seed
+    from seeds import set_seed
 
     set_seed(seed)
     agent = agent_class(**agent_kwargs)

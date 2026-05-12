@@ -5,7 +5,7 @@ Centraliza las evaluaciones que estaban dispersas entre `diagnostics.py` y
 
 - `agent`: cualquier objeto con `select_action_eval(game) -> (r, c)` (los
   agentes tabulares `BaseQAgent` y `ImprovedQAgent`) **o** `nn.Module` con
-  `forward([B, 9]) -> [B, 9] q-values` (los agentes del compañero
+  `forward([B, 9]) -> [B, 9] q-values` (los agentes neuronales
   `MasterDQN` / `MasterSARSA`).
 - `opponent`: callable `f(game) -> (r, c)` (Algorithm wrappers, Minimax,
   random) o `None` para "uniforme aleatorio".
@@ -26,9 +26,9 @@ import pandas as pd
 import torch
 import torch.nn as nn
 
-from new.minimax import MinimaxAgent
-from new.rng_utils import isolated_rng
-from new.seeds import set_seed
+from minimax import MinimaxAgent
+from rng_utils import isolated_rng
+from seeds import set_seed
 from triqui import Game
 from triqui_algorithm import Algorithm
 
@@ -40,8 +40,8 @@ def agent_action(agent, game) -> tuple[int, int]:
     """Devuelve `(r, c)` legal del agente para el estado actual del `game`.
 
     Soporta agentes tabulares (con `select_action_eval`) y `nn.Module`
-    (DQN / SARSA del compañero, que reciben tensor `[1, 9]` y devuelven
-    Q-values; filtramos por jugadas legales y tomamos argmax)."""
+    (DQN / SARSA neuronales, que reciben tensor `[1, 9]` y devuelven
+    Q-values; se filtra por jugadas legales y se toma `argmax`)."""
     if hasattr(agent, "select_action_eval"):
         return agent.select_action_eval(game)
     if isinstance(agent, nn.Module):

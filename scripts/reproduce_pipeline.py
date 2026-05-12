@@ -28,7 +28,7 @@ STEPS = [
     ("pytest",                 [sys.executable, "-m", "pytest", "-q"]),
     ("train_base",             [sys.executable, "-u", "scripts/train_base.py"]),
     ("train_improved",         [sys.executable, "-u", "scripts/train_improved.py"]),
-    ("train_companero_agents", [sys.executable, "-u", "scripts/train_companero_agents.py"]),
+    ("train_neural_agents", [sys.executable, "-u", "scripts/train_neural_agents.py"]),
     ("build_training_times",   [sys.executable, "-u", "scripts/build_training_times.py"]),
     ("run_diagnostics",        [sys.executable, "-u", "scripts/run_diagnostics.py"]),
     ("run_ablations",          [sys.executable, "-u", "scripts/run_ablations.py"]),
@@ -59,7 +59,7 @@ def main() -> None:
         t0 = time.time()
         log_path = _per_step_log_path(name)
         # Pipeamos a un log por-etapa además de stdout. Permite que el notebook
-        # parsee, p.ej., reproduce_train_companero_agents.log para sus métricas.
+        # parsee, p.ej., reproduce_train_neural_agents.log para sus métricas.
         with open(log_path, "w", encoding="utf-8", errors="replace") as f:
             p = subprocess.Popen(cmd, cwd=str(ROOT),
                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT,

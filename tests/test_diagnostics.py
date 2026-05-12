@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from new.diagnostics import (
+from diagnostics import (
     analyze_credit_assignment,
     evaluate_vs_algorithm,
     instrumented_self_play,
@@ -22,8 +22,8 @@ from new.diagnostics import (
     show_no_convergence,
     show_self_play_degeneracy,
 )
-from new.base_q_agent import BaseQAgent
-from new.minimax import MinimaxAgent
+from base_q_agent import BaseQAgent
+from minimax import MinimaxAgent
 
 
 def _csv_for(fig_path: Path) -> Path:

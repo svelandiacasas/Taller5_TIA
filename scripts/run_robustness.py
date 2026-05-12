@@ -35,14 +35,14 @@ import seaborn as sns  # noqa: E402
 import torch  # noqa: E402
 
 from master_RL import MasterDQN, MasterSARSA  # noqa: E402
-from new.base_q_agent import BaseQAgent  # noqa: E402
-from new.evaluation import (  # noqa: E402
+from base_q_agent import BaseQAgent  # noqa: E402
+from evaluation import (  # noqa: E402
     evaluate_robustness,
     make_algorithm_opponent,
     make_minimax_opponent,
     make_random_opponent,
 )
-from new.improved_q_agent import ImprovedQAgent  # noqa: E402
+from improved_q_agent import ImprovedQAgent  # noqa: E402
 
 
 MODELS_DIR = ROOT / "results" / "models"
@@ -210,7 +210,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # Reconfigurar stdout a UTF-8 (mismo problema que train_companero_agents.py).
+    # Reconfigurar stdout a UTF-8 (mismo problema que train_neural_agents.py).
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
         sys.stderr.reconfigure(encoding="utf-8", errors="replace")
