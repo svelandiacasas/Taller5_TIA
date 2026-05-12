@@ -191,10 +191,10 @@ python -m pytest -v
 
 Si se usa este código o sus resultados, citar:
 
-> Velandia, S. (2026). *Taller de Aprendizaje por Refuerzo: diagnóstico y mejora
-> del Q-Learning tabular sobre triqui*. Universidad Nacional de Colombia,
-> Facultad de Ingeniería Mecatrónica, curso *Técnicas de Inteligencia
-> Artificial*, abril 2026.
+> Velandia, S., & Díaz Luna, J. D. (2026). *Taller de Aprendizaje por Refuerzo:
+> diagnóstico y mejora del Q-Learning tabular sobre triqui*. Universidad
+> Nacional de Colombia, Facultad de Ingeniería Mecatrónica, curso *Técnicas de
+> Inteligencia Artificial*, abril 2026.
 
 ## Referencias bibliográficas
 

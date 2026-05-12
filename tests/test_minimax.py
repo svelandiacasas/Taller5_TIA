@@ -1,6 +1,6 @@
 """Tests de optimalidad para `MinimaxAgent`.
 
-Garantías que verificamos:
+Garantías verificadas:
 - Minimax-vs-Minimax siempre empata.
 - Minimax (cualquier rol) nunca pierde contra Random en >= 1000 partidas.
 - `optimal_actions` no es vacía mientras haya jugadas legales.

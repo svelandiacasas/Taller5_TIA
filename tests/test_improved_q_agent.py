@@ -245,7 +245,7 @@ def test_adapter_propagates_dual_perspective():
 
 def test_adapter_handles_perspective_flip():
     """Estado en frame absoluto donde O es mover: el adapter debe consultar
-    Q en O-vista, no en X-vista. Sembramos Q en O-vista y verificamos."""
+    Q en O-vista, no en X-vista. Se siembra Q en O-vista y se verifica."""
     agent = ImprovedQAgent(use_symmetries=False, dual_perspective=True,
                            optimistic_init=0.0)
     # Estado absoluto: X en (0,0), nadie más. Mover es O.

@@ -1,7 +1,7 @@
 """Mide el speedup de `run_parallel_seeds` vs ejecución secuencial.
 
 Sujeto: `BaseQAgent` con 10 semillas × 10 000 episodios. Es el régimen ligero
-que usaremos en Fase 6 para iterar; con `ImprovedQAgent` × 5 variantes × 10
+que se usa para iterar el ablation study; con `ImprovedQAgent` × 5 variantes × 10
 semillas serán ~3× más caro.
 
 Salida en consola + JSON en `results/logs/parallel_speedup.json`.

@@ -29,7 +29,7 @@ import torch.nn as nn
 from seeds import set_seed
 
 
-# Convenciones del profesor (no tocar)
+# Convenciones de la implementación de referencia (no tocar)
 EMPTY = 0
 X = 1
 O = -1
@@ -74,10 +74,10 @@ def _state_to_tuple(state: np.ndarray) -> tuple:
 
 
 # ---------------------------------------------------------------------------- #
-# Agente Q-Learning tabular (núcleo fiel al profesor)
+# Agente Q-Learning tabular (núcleo fiel a la implementación de referencia)
 # ---------------------------------------------------------------------------- #
 class BaseQAgent:
-    """Q-Learning tabular tal como en el notebook del profesor.
+    """Q-Learning tabular tal como en la implementación de referencia.
 
     Atributos
     ---------
@@ -95,7 +95,7 @@ class BaseQAgent:
         self.Q: dict[tuple[tuple, tuple[int, int]], float] = {}
 
     # ------------------------------------------------------------------ #
-    # Núcleo (réplica literal del profesor)
+    # Núcleo (réplica literal de la implementación de referencia)
     # ------------------------------------------------------------------ #
     def get_Q(self, state_tuple: tuple, action: tuple[int, int]) -> float:
         return self.Q.get((state_tuple, action), 0.0)
@@ -107,7 +107,7 @@ class BaseQAgent:
         El parámetro `tiebreak_random` controla la regla de desempate cuando
         varias acciones empatan en `max(Q)`:
 
-        - `False` (defecto, fiel al profesor): `actions[qs.index(max_q)]`
+        - `False` (defecto, fiel a la implementación de referencia): `actions[qs.index(max_q)]`
           devuelve la PRIMERA acción del orden de `_available_actions`. Es el
           sesgo "primer índice válido" del notebook; **se preserva en `train`**.
         - `True` (solo evaluación): `random.choice` entre las empatadas.
@@ -211,7 +211,7 @@ class TabularToTorchAdapter(nn.Module):
 
     El uso típico es:
     - `BaseQAgent`: `TabularToTorchAdapter(agent)` (defaults; `get_Q` devuelve
-      `0.0` para pares no vistos, fiel al profesor).
+      `0.0` para pares no vistos, fiel a la implementación de referencia).
     - `ImprovedQAgent` (dual_perspective=True): `TabularToTorchAdapter(agent,
       dual_perspective=True)` (canonicalización + `optimistic_init` quedan
       adentro de `agent.get_Q`).

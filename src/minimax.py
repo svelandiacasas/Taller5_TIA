@@ -2,7 +2,7 @@
 
 Triqui es un juego resuelto con ~5478 estados legales. Esta implementación
 usa minimax exhaustivo con memoización (transposition table compartida a
-nivel de clase). No usamos alpha-beta porque para este orden de magnitud
+nivel de clase). No se utiliza alpha-beta porque para este orden de magnitud
 la memoización ya domina y los valores cacheados con cutoffs requieren
 flags de bound que no aportan valor práctico aquí.
 

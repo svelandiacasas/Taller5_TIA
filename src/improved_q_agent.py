@@ -11,7 +11,7 @@ y supera al strawman de referencia:
 
 - **ε decay exponencial** (`epsilon_start=1.0`, `epsilon_end=0.05`,
   `epsilon_decay=0.9995`): explora intensamente al principio, explota más al
-  final. Reemplaza el `ε=0.2` constante del profesor.
+  final. Reemplaza el `ε=0.2` constante del agente de referencia.
 
 - **Reward shaping potential-based** (`reward_shaping=True`,
   `shaping_weight=0.1`): añade `F(s, a, s') = γ·Φ(s') − Φ(s)` con
@@ -21,7 +21,7 @@ y supera al strawman de referencia:
 
   Sigue la forma de Ng, Harada, Russell (1999): dado que Φ es función SOLO
   del estado, la política óptima de la MDP modificada es idéntica a la
-  original — el shaping solo acelera el aprendizaje, no lo sesga. Aplicamos
+  original — el shaping solo acelera el aprendizaje, no lo sesga. Se aplica
   Φ entre la pre-acción y la post-acción ambas en perspectiva del mover (la
   "variante de efecto inmediato" — más débil que la formulación canónica con
   delay de un turno por jugador, pero sin reordenar el ciclo de updates).

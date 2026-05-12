@@ -81,7 +81,7 @@ def _ensure_dirs(output_dir: Path) -> tuple[Path, Path]:
 
 
 # --------------------------------------------------------------------- #
-# Self-play instrumentado: réplica fiel del train del profesor + métricas
+# Self-play instrumentado: réplica fiel del bucle de training de referencia + métricas
 # --------------------------------------------------------------------- #
 def instrumented_self_play(
     agent: BaseQAgent,
@@ -93,7 +93,7 @@ def instrumented_self_play(
     por cada movimiento si era óptimo según minimax.
 
     Las actualizaciones de `agent.Q` son IDÉNTICAS a las que haría `agent.train`:
-    no se modifica el algoritmo del profesor, solo se observa.
+    no se modifica el algoritmo de referencia, solo se observa.
 
     Parameters
     ----------
@@ -134,7 +134,7 @@ def instrumented_self_play(
                 "n_optimal": len(optimal),
             })
 
-            # Aplicación + Q-update (idéntico al profesor).
+            # Aplicación + Q-update (idéntico a la implementación de referencia).
             state[action] = current_player
             result = _check_winner(state)
             s_next = _state_to_tuple(state)

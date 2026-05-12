@@ -23,7 +23,7 @@ Salidas (en `output_dir`):
 - `figures/ablation_<metric>.png`: bar chart por variante con error bars
   IC95, una figura por métrica (4 en total).
 
-**Sobre el volumen de evaluación**: usamos 500 partidas por matchup, no las
+**Sobre el volumen de evaluación**: se usan 500 partidas por matchup, no las
 ≥ 10 000 que pide el enunciado del taller. Razón: la unidad de variabilidad
 relevante para el ablation es la *semilla* (10 puntos por celda → IC95
 bootstrap sobre 10), no la partida. Con 500 partidas la varianza intra-seed

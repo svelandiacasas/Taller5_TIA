@@ -77,7 +77,7 @@ def test_results_have_expected_keys():
         assert set(r.keys()) >= {"seed", "agent", "history"}
         assert isinstance(r["agent"], BaseQAgent)
         # BaseQAgent.train returns None; ImprovedQAgent returns dict.
-        # Aquí solo verificamos que el campo existe (puede ser None).
+        # Aquí solo se verifica que el campo existe (puede ser None).
 
 
 # --------------------------------------------------------------------- #

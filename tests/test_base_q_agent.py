@@ -1,9 +1,9 @@
 """Tests para `BaseQAgent` y `TabularToTorchAdapter`.
 
-Garantías que verificamos:
+Garantías verificadas:
 
 1. **Determinismo**: misma seed → misma Q-table (claves y valores idénticos).
-2. **Fidelidad bit a bit**: una reimplementación literal del código del profesor
+2. **Fidelidad bit a bit**: una reimplementación literal del agente de referencia
    y `BaseQAgent` con la misma seed producen Q-tables idénticas.
 3. **Helpers** (`_check_winner`): casos representativos.
 4. **Adapter**: shapes correctos, traducción Game(1, 2) → agente(±1) correcta,
@@ -11,7 +11,7 @@ Garantías que verificamos:
 5. **Wrapper de oponente** (`select_action_eval`): jugadas legales contra `Game`.
 6. **Smoke**: jugar contra random sin romper.
 7. **Patología empírica**: tras N episodios existen valores negativos en `Q`
-   (la asignación de crédito errónea descrita en `docs/referencia_profesor.md`).
+   (la asignación de crédito errónea documentada en la sección 5 del notebook).
 """
 import hashlib
 import random as _random
@@ -60,11 +60,11 @@ def test_base_q_agent_differs_with_different_seed():
 
 
 # --------------------------------------------------------------------- #
-# 2. Fidelidad bit a bit al código del profesor
+# 2. Fidelidad bit a bit al código de referencia
 # --------------------------------------------------------------------- #
 def test_base_q_agent_matches_professor_code_exactly():
-    """Reimplementación literal del notebook (copiada de `docs/referencia_profesor.md`)
-    versus `BaseQAgent` con la misma seed: Q-tables IDÉNTICAS."""
+    """Reimplementación literal del agente Q-Learning de referencia versus
+    `BaseQAgent` con la misma seed: Q-tables IDÉNTICAS."""
     EMPTY_, X_, O_ = 0, 1, -1
 
     def initial_state():
@@ -211,7 +211,7 @@ def test_adapter_returns_zeros_for_unseen_state():
 
 def test_adapter_translates_game_convention_to_agent_convention():
     """El adapter recibe estados con `2` (Game) pero indexa Q con `-1` (agente).
-    Verificamos sembrando una entrada conocida en Q y confirmando lookup correcto."""
+    Se siembra una entrada conocida en Q y se confirma el lookup correcto."""
     agent = BaseQAgent()
     # Estado en convención del agente: X esquina (0,0), O centro (1,1)
     agent_state = tuple(np.array([1, 0, 0, 0, -1, 0, 0, 0, 0]))
